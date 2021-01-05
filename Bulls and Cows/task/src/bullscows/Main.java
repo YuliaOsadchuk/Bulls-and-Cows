@@ -10,10 +10,22 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        int count = scanner.nextInt();
+        if (count > 10) {
+            System.out.println("Error: can't generate a secret number with a length of " + count +
+                    " because there aren't enough unique digits.");
+            return;
+        }
+
+        long pseudoRandomNumber = System.nanoTime();
+
+        System.out.println(pseudoRandomNumber);
+
+        /* Scanner scanner = new Scanner(System.in);
         int inputNumber = scanner.nextInt();
         Random random = new Random();
         //secretNumber = random.nextInt(10000);
-        scoreBulls(inputNumber);
+        scoreBulls(inputNumber);*/
     }
 
     public static void scoreBulls(int inputNumber) {
