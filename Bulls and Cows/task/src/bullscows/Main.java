@@ -1,58 +1,55 @@
 package bullscows;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static int bulls = 0;
     public static int cows = 0;
-    public static int secretNumber;
+    public static String secretNumber;
 
     public static void main(String[] args) {
-        System.out.println("Please, enter the secret code's length:");
+        System.out.println("Input the length of the secret code:");
         Scanner scanner = new Scanner(System.in);
         int count = scanner.nextInt();
-        if (count > 10) {
+        if (count > 36) {
             System.out.println("Error: can't generate a secret number with a length of " + count +
                     " because there aren't enough unique digits.");
             return;
         }
+        String[] symbols = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f",
+                "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
 
+        System.out.println("Input the number of possible symbols in the code:");
+        int numberPossible = scanner.nextInt();
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder();
         while (stringBuilder.length() != count) {
-            String generate = String.valueOf(random.nextInt(10));
-            if (!stringBuilder.toString().contains(generate)) {
-                stringBuilder.append(generate);
+            int generate = random.nextInt(numberPossible);
+            if (!stringBuilder.toString().contains(symbols[generate])) {
+                stringBuilder.append(symbols[generate]);
             }
         }
-        secretNumber = Integer.parseInt(stringBuilder.toString());
-        //System.out.println(secretNumber);
-        /*long pseudoRandomNumber = System.nanoTime();
-        String pseudoString = String.valueOf(pseudoRandomNumber);
-        if (pseudoString.startsWith("0")) {
-            pseudoString = pseudoString.substring(1);
+        secretNumber = stringBuilder.toString();
+        System.out.println(secretNumber);
+        StringBuilder stringSymbols = new StringBuilder();
+        stringSymbols.append("The secret is prepared: ");
+        for (int i = 0; i < count; i++) {
+            stringSymbols.append("*");
         }
-        StringBuilder stringBuilder = new StringBuilder();
-
-        int i = 0;
-        while (stringBuilder.length() != count) {
-            String s = String.valueOf(pseudoString.charAt(i));
-
-            if (pseudoString.length() - 1 == i) {
-                pseudoString = String.valueOf(System.nanoTime());
-                i = 0;
+        stringSymbols.append(" (0-");
+        if (numberPossible > 10) {
+            stringSymbols.append("9, a");
+            if (numberPossible > 11 && numberPossible < 36) {
+                stringSymbols.append("-");
             }
-            i++;
-            if (stringBuilder.toString().contains(s)) {
-                continue;
-            } else {
-                stringBuilder.append(s);
-            }
+        }
+        stringSymbols.append(symbols[numberPossible - 1]);
+        stringSymbols.append(").");
 
-        }*/
-        //secretNumber = Integer.parseInt(stringBuilder.toString());
 
+        System.out.println(stringSymbols);
         System.out.println("Okay, let's start a game!");
 
         int turn = 1;
