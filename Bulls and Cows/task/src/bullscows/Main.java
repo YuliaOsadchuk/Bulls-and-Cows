@@ -18,8 +18,30 @@ public class Main {
         }
 
         long pseudoRandomNumber = System.nanoTime();
+        String pseudoString = String.valueOf(pseudoRandomNumber);
+        if (pseudoString.startsWith("0")) {
+            pseudoString = pseudoString.substring(1);
+        }
+        StringBuilder stringBuilder = new StringBuilder();
 
-        System.out.println(pseudoRandomNumber);
+        int i = 0;
+        while (stringBuilder.length() != count) {
+            String s = String.valueOf(pseudoString.charAt(i));
+
+            if (pseudoString.length() - 1 == i) {
+                pseudoString = String.valueOf(System.nanoTime());
+                i = 0;
+            }
+            i++;
+            if (stringBuilder.toString().contains(s)) {
+                continue;
+            } else {
+                stringBuilder.append(s);
+            }
+
+        }
+
+        System.out.println("The random secret number is " + stringBuilder);
 
         /* Scanner scanner = new Scanner(System.in);
         int inputNumber = scanner.nextInt();
