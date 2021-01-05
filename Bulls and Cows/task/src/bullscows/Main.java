@@ -18,7 +18,17 @@ public class Main {
             return;
         }
 
-        long pseudoRandomNumber = System.nanoTime();
+        Random random = new Random();
+        StringBuilder stringBuilder = new StringBuilder();
+        while (stringBuilder.length() != count) {
+            String generate = String.valueOf(random.nextInt(10));
+            if (!stringBuilder.toString().contains(generate)) {
+                stringBuilder.append(generate);
+            }
+        }
+        secretNumber = Integer.parseInt(stringBuilder.toString());
+        //System.out.println(secretNumber);
+        /*long pseudoRandomNumber = System.nanoTime();
         String pseudoString = String.valueOf(pseudoRandomNumber);
         if (pseudoString.startsWith("0")) {
             pseudoString = pseudoString.substring(1);
@@ -40,57 +50,35 @@ public class Main {
                 stringBuilder.append(s);
             }
 
-        }
-        secretNumber = Integer.parseInt(stringBuilder.toString());
+        }*/
+        //secretNumber = Integer.parseInt(stringBuilder.toString());
+
         System.out.println("Okay, let's start a game!");
 
         int turn = 1;
-        int inputNumber;
         while (bulls != count) {
             System.out.println("Turn " + turn + ":");
-            inputNumber = scanner.nextInt();
-            scoreBulls(inputNumber);
+            scoreBulls(scanner.next());
             turn++;
             printResult(count);
         }
 
-        //Random random = new Random();
-        //secretNumber = random.nextInt(10000);
+
     }
 
-    public static void scoreBulls(int inputNumber) {
+    public static void scoreBulls(String inputNumber) {
         bulls = 0;
         cows = 0;
-       /* if (inputNumber == secretNumber) {
-            bulls = 4;
-            printResult();
-            return;
-        }*/
 
-        String input = String.valueOf(inputNumber);
         String secret = String.valueOf(secretNumber);
-        for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == secret.charAt(i)) {
+        for (int i = 0; i < inputNumber.length(); i++) {
+            if (inputNumber.charAt(i) == secret.charAt(i)) {
                 bulls++;
-            } else if (input.contains(String.valueOf(secret.charAt(i)))) {
+            } else if (inputNumber.contains(String.valueOf(secret.charAt(i)))) {
                 cows++;
             }
         }
     }
-
-    /*public static void scoreCows(int inputNumber) {
-        String input = String.valueOf(inputNumber);
-        String secret = String.valueOf(secretNumber);
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (input.charAt(i) == secret.charAt(j) && i != j) {
-                    cows++;
-                    break;
-                }
-            }
-        }
-        printResult();
-    }*/
 
     public static void printResult(int count) {
         if (bulls == 0 && cows == 0) {
@@ -99,7 +87,7 @@ public class Main {
             System.out.println("Grade: " + bulls + " bulls");
             System.out.println("Congratulations! You guessed the secret code.");
         } else {
-            System.out.println("Grade: " + bulls + " bull(s) and " + cows + " cow(s)."+secretNumber);
+            System.out.println("Grade: " + bulls + " bull(s) and " + cows + " cow(s).");
         }
     }
 
